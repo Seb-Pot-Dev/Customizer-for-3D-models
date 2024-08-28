@@ -14,7 +14,7 @@ import {
 const Home = () => {
   const snap = useSnapshot(state);
   return (
-    <animatePresence>
+    <AnimatePresence>
       {snap.intro && (
         <motion.div className="home" {...slideAnimation('left')}>
           <motion.header {...slideAnimation('down')}>
@@ -43,7 +43,7 @@ const Home = () => {
         </motion.div>
         
       )}
-    </animatePresence>
+    </AnimatePresence>
   )
 }
 
