@@ -8,9 +8,9 @@ import { download } from '../assets';
 import { downloadCanvasToImage, reader } from '../config/helpers';
 import { EditorTabs, FilterTabs, DecalTypes } from '../config/constants';
 import { fadeAnimation, slideAnimation } from '../config/motion';
-import { AIPicker, ColorPicker, CustomButton, FilePicker, Tab } from '../components';
+import { AIPicker, ColorPicker, CustomButton, FilePicker, ModelSwitcher, Tab } from '../components';
 
-const Customizer = () => {
+const Customizer = ({activeModel, setActiveModel}) => {
   const snap = useSnapshot(state);
 
   const [file, setFile] = useState('');
@@ -24,6 +24,7 @@ const Customizer = () => {
     stylishShirt: false,
   })
 
+
   // show tab content depending on the activeTab
   const generateTabContent = () => {
     switch (activeEditorTab) {
@@ -35,6 +36,11 @@ const Customizer = () => {
           setFile={setFile}
           readFile={readFile}
         />
+        case "modelSwitcher":
+          return <ModelSwitcher
+            activeModel={activeModel}         // Passez les props ici
+            setActiveModel={setActiveModel}   // Passez les props ici
+          />
       case "aipicker":
         return <AIPicker 
           prompt={prompt}
@@ -150,6 +156,7 @@ const Customizer = () => {
               handleClick={() => state.intro = true}
               customStyles="w-fit px-4 py-2.5 font-bold text-sm"
             />
+             
           </motion.div>
 
           <motion.div

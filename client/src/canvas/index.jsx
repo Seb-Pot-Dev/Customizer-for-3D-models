@@ -2,10 +2,11 @@ import React from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Environment, Center } from '@react-three/drei';
 import Shirt from './Shirt';
+import Screw from './Screw';
 import Backdrop  from './Backdrop';
 import CameraRig from './CameraRig';
 
-const CanvasModel = () => {
+const CanvasModel = ({activeModel}) => {
   return (
     <Canvas
       shadows
@@ -19,7 +20,7 @@ const CanvasModel = () => {
       <CameraRig>
         <Backdrop/>
         <Center>
-          <Shirt/>
+          {activeModel === 'shirt' ? <Shirt/> : <Screw/>}        
         </Center>
       </CameraRig>
     </Canvas>
