@@ -26,11 +26,11 @@ const Home = () => {
           </motion.header>
           <motion.div className='home-content' {...headContainerAnimation}>
             <motion.div {...headTextAnimation}>
-              <h1 className='head-text'>LETS<br className='xl:block hidden'/>DO IT</h1>
+              <h1 className='head-text'>Made with<br className='xl:block hidden'/>React</h1>
             </motion.div>
             <motion.div {...headContentAnimation}
             className='flex flex-col gap-5-'>
-              <p className='max-w-md font-normal text-gray-600 text-base'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque esse, neque quia, eveniet nam amet optio porro vero molestias <strong>vitae rerum odio dolorem</strong>{" "} delectus aliquid necessitatibus quas. In, ducimus eligendi!</p>
+              <p className='max-w-md font-normal text-gray-600 text-base'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque esse, neque quia, eveniet nam amet optio porro vero molestias <strong>I NEED MONEY</strong>{" "} delectus aliquid necessitatibus quas. In, ducimus eligendi!</p>
             
               <CustomButton
                 type="filled"
