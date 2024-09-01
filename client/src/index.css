@@ -28,7 +28,7 @@ html {
 }
 
 .head-text {
-  @apply xl:text-[10rem] text-[6rem] xl:leading-[11rem] leading-[7rem] font-black text-black;
+  @apply xl:text-[8rem] text-[4rem] xl:leading-[9rem] leading-[5rem] font-black text-black;
 }
 
 .download-btn {
@@ -89,4 +89,63 @@ input[type="file"] {
 
 .sketch-picker > div:nth-child(3) {
   display: none !important;
+}
+
+.container{
+  width:200px;
+  height:200px;
+  background:transparent;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+@keyframes rotate{
+  100%{
+    transform:rotate(360deg);
+  }
+}
+.react-logo{
+  display: inline-block;
+  border-radius:50%;
+  border:10px solid black;
+
+  animation-name:rotate;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+
+}
+
+.react-logo , .react-logo:before , .react-logo:after{
+  position:absolute;
+  display: inline-block;
+  width:200px;
+  height:70px;
+  border-radius:50%;
+  border:10px solid black;
+}
+
+.nucleo , .react-logo , .react-logo:before , .react-logo:after {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nucleo{
+  width:40px;
+  height:40px;
+  border-radius:100%;
+  background:black;
+}
+
+.react-logo:before , .react-logo:after{
+  content:"";
+}
+
+.react-logo:after{
+  transform:rotate(-57deg);
+}
+
+.react-logo:before{
+  transform:rotate(57deg);
 }

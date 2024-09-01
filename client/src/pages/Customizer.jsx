@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useSnapshot } from 'valtio';
-
-import config from '../config/config';
 import state from '../store';
 import { download } from '../assets';
 import { downloadCanvasToImage, reader } from '../config/helpers';
@@ -128,7 +126,7 @@ const Customizer = ({activeModel, setActiveModel}) => {
             <CustomButton 
               type="filled"
               title="Go Back"
-              handleClick={() => state.intro = true}
+              handleClick={() => {state.intro = true; state.isVisible = false;}}
               customStyles="w-fit px-4 py-2.5 font-bold text-sm"
             />
              
