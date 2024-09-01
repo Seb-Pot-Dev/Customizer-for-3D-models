@@ -9,8 +9,7 @@ const Screw = () => {
 
   return (
     <group>
-      {/* Rendre directement le groupe entier */}
-      <primitive object={gltf.scene} scale={0.02} />
+      <primitive object={gltf.scene} scale={0.01} />
     </group>
   );
 };

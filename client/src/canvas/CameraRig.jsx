@@ -1,48 +1,55 @@
-import React, { useRef } from 'react';
-import { useFrame } from '@react-three/fiber'; // Permet d'exécuter du code à chaque frame (image) rendue par React Three Fiber
-import { easing } from 'maath'; // Utilisé pour animer en douceur les mouvements et rotations
-import { useSnapshot } from 'valtio'; // Pour accéder à l'état réactif géré par valtio
+import React, { useRef, useState } from 'react';
+import { useFrame } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
+import { easing } from 'maath';
+import { useSnapshot } from 'valtio';
 
-import state from '../store'; // Import du store valtio pour gérer l'état global
+import state from '../store';
 
-const CameraRig = ({ children }) => {
-  const group = useRef(); // Référence au groupe 3D contenant le modèle
-  const snap = useSnapshot(state); // Capture instantanée de l'état global pour réagir aux changements
+const CameraRig = ({ children, basePosition = [0, 0, 2], introPosition = [0, 0, 2.5], transitionSpeed = 0.25, rotationSensitivity = [6, 3] }) => {
+  const group = useRef();
+  const snap = useSnapshot(state);
+
+  const [isInteracting, setIsInteracting] = useState(false); // État pour suivre l'interaction manuelle
 
   useFrame((state, delta) => {
-    // Variables pour détecter si l'écran est en mode breakpoint (tablette) ou mobile
-    const isBreakpoint = window.innerWidth <= 1260;
-    const isMobile = window.innerWidth <= 600;
+    if (!isInteracting) {
+      const isBreakpoint = window.innerWidth <= 1260;
+      const isMobile = window.innerWidth <= 600;
 
-    // Définition de la position initiale du modèle 3D
-    let targetPosition = [-0.4, 0, 2]; // Position par défaut
-    if (snap.intro) { // Si on est dans l'état d'intro
-      if (isBreakpoint) targetPosition = [0, 0, 2]; // Position pour les tablettes
-      if (isMobile) targetPosition = [0, 0.2, 2.5]; // Position pour les mobiles
-    } else {
-      // Position pour l'état normal (pas d'intro)
-      if (isMobile) targetPosition = [0, 0, 2.5];
-      else targetPosition = [0, 0, 2];
+      let targetPosition = [-0.4, 0, 2];
+      if (snap.intro) {
+        if (isBreakpoint) targetPosition = basePosition;
+        if (isMobile) targetPosition = [0, 0.2, 2.5];
+      } else {
+        targetPosition = isMobile ? introPosition : basePosition;
+      }
+
+      // Animation de la caméra
+      easing.damp3(state.camera.position, targetPosition, transitionSpeed, delta);
+
+      // Animation de la rotation du modèle en fonction de la position du pointeur
+      easing.dampE(
+        group.current.rotation,
+        [state.pointer.y / rotationSensitivity[0], -state.pointer.x / rotationSensitivity[1], 0],
+        0.125,
+        delta
+      );
     }
-
-    // Animation de la caméra vers la position cible avec un adoucissement
-    // Modifiez 0.25 pour changer la rapidité de la transition
-    easing.damp3(state.camera.position, targetPosition, 0.25, delta);
-
-    // Animation de la rotation du modèle en fonction de la position du pointeur
-    // Modifiez les divisors (10, 5) pour changer la sensibilité de la rotation
-    easing.dampE(
-      group.current.rotation,
-      [state.pointer.y / 6, -state.pointer.x / 3, 0],
-      0.125,
-      delta
-    );
   });
 
-  // Rendu du groupe 3D
   return (
-    <group ref={group}>{children}</group>
+    <>
+      <OrbitControls 
+        enableZoom={true} 
+        enableRotate={true} 
+        enablePan={true}
+        onStart={() => setIsInteracting(true)}  // Désactiver l'animation pendant l'interaction (rotation, zoom, etc.)
+        onEnd={() => setTimeout(() => setIsInteracting(false), 2000)} // Réactiver après un délai
+      />
+      <group ref={group}>{children}</group>
+    </>
   );
-}
+};
 
 export default CameraRig;
