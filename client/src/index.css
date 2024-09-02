@@ -28,7 +28,7 @@ html {
 }
 
 .head-text {
-  @apply xl:text-[8rem] text-[4rem] xl:leading-[9rem] leading-[5rem] font-black text-black;
+  @apply xl:text-[6rem] text-[2rem] xl:leading-[7rem] leading-[3rem] font-black text-black;
 }
 
 .download-btn {
@@ -91,13 +91,14 @@ input[type="file"] {
   display: none !important;
 }
 
-.container{
+.container-react-logo{
   width:200px;
   height:200px;
   background:transparent;
   display:flex;
   align-items: center;
   justify-content: center;
+  margin-top: 0.5rem;
 }
 @keyframes rotate{
   100%{
