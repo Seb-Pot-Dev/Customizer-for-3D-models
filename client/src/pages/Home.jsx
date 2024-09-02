@@ -41,7 +41,7 @@ const Home = () => {
 							className="flex flex-col gap-5-"
 						>
 							<p className="max-w-md font-normal text-gray-600 text-base mb-4 text-justify">
-								Ce projet exploite <strong>React</strong>,
+								Ce projet exploite <strong>React</strong> et
 								<strong> react-three-fiber (R3F)</strong> pour
 								instancier un <strong>objet 3D</strong>. La
 								bibliothèque
